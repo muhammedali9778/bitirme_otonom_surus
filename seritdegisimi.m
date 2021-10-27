@@ -28,28 +28,27 @@ classdef seritdegisimi < matlab.System
 
     methods(Access = protected)
         function setupImpl(obj)
-            % Perform one-time calculations, such as computing constants
+            
         end
 
         function latSpeed = stepImpl(obj,flag, clock, y)
-            % Implement algorithm. Calculate y as a function of input u and
-            % discrete states.
+           
             
             if flag
                 
                 if isempty(obj.a5)
                     obj.t_i = clock;
                     
-                    d_i =         [1  obj.t_i   obj.t_i^2   obj.t_i^3    obj.t_i^4    obj.t_i^5]; % -2.5
-                    d_dot_i =     [0  1   2*obj.t_i   3*obj.t_i^2  4*obj.t_i^3  5*obj.t_i^4]; %  0
-                    d_ddot_i =    [0  0   2     6*obj.t_i    12*obj.t_i^2  20*obj.t_i^3]; %  0
+                    d_i =         [1  obj.t_i   obj.t_i^2   obj.t_i^3    obj.t_i^4    obj.t_i^5]; 
+                    d_dot_i =     [0  1   2*obj.t_i   3*obj.t_i^2  4*obj.t_i^3  5*obj.t_i^4]; 
+                    d_ddot_i =    [0  0   2     6*obj.t_i    12*obj.t_i^2  20*obj.t_i^3];
                     
                     
-                    obj.t_f = obj.t_i + 10; % delta T = 10 seconds
+                    obj.t_f = obj.t_i + 10; 
                     
-                    d_f =         [1  obj.t_f   obj.t_f^2   obj.t_f^3    obj.t_f^4    obj.t_f^5]; % 2.5
-                    d_dot_f =     [0  1   2*obj.t_f   3*obj.t_f^2  4*obj.t_f^3  5*obj.t_f^4]; % 0
-                    d_ddot_f =    [0  0   2     6*obj.t_f    12*obj.t_f^2  20*obj.t_f^3]; % 0
+                    d_f =         [1  obj.t_f   obj.t_f^2   obj.t_f^3    obj.t_f^4    obj.t_f^5];
+                    d_dot_f =     [0  1   2*obj.t_f   3*obj.t_f^2  4*obj.t_f^3  5*obj.t_f^4];
+                    d_ddot_f =    [0  0   2     6*obj.t_f    12*obj.t_f^2  20*obj.t_f^3]; 
                     
                     A = [d_i; d_dot_i; d_ddot_i; d_f; d_dot_f; d_ddot_f];
                     
@@ -69,16 +68,16 @@ classdef seritdegisimi < matlab.System
                     obj.overtake= true;
                     obj.t_i = clock;
                     
-                    d_i =         [1  obj.t_i   obj.t_i^2   obj.t_i^3    obj.t_i^4    obj.t_i^5]; % -2.5
-                    d_dot_i =     [0  1   2*obj.t_i   3*obj.t_i^2  4*obj.t_i^3  5*obj.t_i^4]; %  0
-                    d_ddot_i =    [0  0   2     6*obj.t_i    12*obj.t_i^2  20*obj.t_i^3]; %  0
+                    d_i =         [1  obj.t_i   obj.t_i^2   obj.t_i^3    obj.t_i^4    obj.t_i^5];
+                    d_dot_i =     [0  1   2*obj.t_i   3*obj.t_i^2  4*obj.t_i^3  5*obj.t_i^4];
+                    d_ddot_i =    [0  0   2     6*obj.t_i    12*obj.t_i^2  20*obj.t_i^3];
                     
                     
-                    obj.t_f = obj.t_i + 10; % delta T = 10 seconds
+                    obj.t_f = obj.t_i + 10; 
                     
-                    d_f =         [1  obj.t_f   obj.t_f^2   obj.t_f^3    obj.t_f^4    obj.t_f^5]; % 2.5
-                    d_dot_f =     [0  1   2*obj.t_f   3*obj.t_f^2  4*obj.t_f^3  5*obj.t_f^4]; % 0
-                    d_ddot_f =    [0  0   2     6*obj.t_f    12*obj.t_f^2  20*obj.t_f^3]; % 0
+                    d_f =         [1  obj.t_f   obj.t_f^2   obj.t_f^3    obj.t_f^4    obj.t_f^5]; 
+                    d_dot_f =     [0  1   2*obj.t_f   3*obj.t_f^2  4*obj.t_f^3  5*obj.t_f^4];
+                    d_ddot_f =    [0  0   2     6*obj.t_f    12*obj.t_f^2  20*obj.t_f^3]; 
                     
                     A = [d_i; d_dot_i; d_ddot_i; d_f; d_dot_f; d_ddot_f];
                     
