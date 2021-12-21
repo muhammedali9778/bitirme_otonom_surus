@@ -1,4 +1,4 @@
-classdef LaneChanger < matlab.System
+classdef SeritDegisimi < matlab.System
     % Untitled3 Add summary here
     %
     % This template includes the minimum set of functions required
@@ -31,7 +31,7 @@ classdef LaneChanger < matlab.System
             % Perform one-time calculations, such as computing constants
         end
 
-        function latSpeed = stepImpl(obj,flag, clock, y)
+        function y_Hiz = stepImpl(obj,flag, clock, y)
             % Implement algorithm. Calculate y as a function of input u and
             % discrete states.
             
@@ -40,20 +40,20 @@ classdef LaneChanger < matlab.System
                 if isempty(obj.a5)
                     obj.t_i = clock;
                     
-                    d_i =         [1  obj.t_i   obj.t_i^2   obj.t_i^3    obj.t_i^4    obj.t_i^5]; % -2.5
-                    d_dot_i =     [0  1   2*obj.t_i   3*obj.t_i^2  4*obj.t_i^3  5*obj.t_i^4]; %  0
-                    d_ddot_i =    [0  0   2     6*obj.t_i    12*obj.t_i^2  20*obj.t_i^3]; %  0
+                    d_i =         [1  obj.t_i   obj.t_i^2   obj.t_i^3    obj.t_i^4    obj.t_i^5];
+                    d_dot_i =     [0  1   2*obj.t_i   3*obj.t_i^2  4*obj.t_i^3  5*obj.t_i^4];
+                    d_ddot_i =    [0  0   2     6*obj.t_i    12*obj.t_i^2  20*obj.t_i^3]; 
                     
                     
-                    obj.t_f = obj.t_i + 10; % delta T = 10 seconds
+                    obj.t_f = obj.t_i + 10; 
                     
-                    d_f =         [1  obj.t_f   obj.t_f^2   obj.t_f^3    obj.t_f^4    obj.t_f^5]; % 2.5
-                    d_dot_f =     [0  1   2*obj.t_f   3*obj.t_f^2  4*obj.t_f^3  5*obj.t_f^4]; % 0
-                    d_ddot_f =    [0  0   2     6*obj.t_f    12*obj.t_f^2  20*obj.t_f^3]; % 0
+                    d_f =         [1  obj.t_f   obj.t_f^2   obj.t_f^3    obj.t_f^4    obj.t_f^5];
+                    d_dot_f =     [0  1   2*obj.t_f   3*obj.t_f^2  4*obj.t_f^3  5*obj.t_f^4];
+                    d_ddot_f =    [0  0   2     6*obj.t_f    12*obj.t_f^2  20*obj.t_f^3]; 
                     
                     A = [d_i; d_dot_i; d_ddot_i; d_f; d_dot_f; d_ddot_f];
                     
-                    B = [y; 0; 0; y+5; 0; 0];
+                    B = [y; 0; 0; y+4; 0; 0];
                     
                     X = linsolve(A,B);
                     
@@ -67,17 +67,17 @@ classdef LaneChanger < matlab.System
                 
                               
                 if clock> obj.t_f
-                    latSpeed=0;
+                    y_Hiz=0;
                 else
                     t = clock;
                     
-                    latSpeed =  obj.a1  + 2*obj.a2*t +  3*obj.a3*t.^2  +  4*obj.a4*t.^3  +  5*obj.a5*t.^4;
+                    y_Hiz =  obj.a1  + 2*obj.a2*t +  3*obj.a3*t.^2  +  4*obj.a4*t.^3  +  5*obj.a5*t.^4;
 
                     
                 end
                 
             else
-                latSpeed = 0;
+                y_Hiz = 0;
             end
             
         end
