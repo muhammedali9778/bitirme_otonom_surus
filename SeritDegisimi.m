@@ -63,7 +63,7 @@ classdef SeritDegisimi < matlab.System
                     obj.a4 = X(5);
                     obj.a5 = X(6);
                 end
-
+                
                 if sollama_flag && isempty(obj.overtake)
                         obj.t_i = clock;
                         obj.overtake = true;
